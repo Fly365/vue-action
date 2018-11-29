@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue demo</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name" placeholder="请输入姓名" />
+        <h1>您好, {{name}}</h1>
+    </div>
+<script src="vue.js"></script>
+<script>
+    // 数据的双向绑定，在输入框输入的内容会实时展示在 h1 标签内
+    var app = new Vue({
+        el: "#app",
+        data: {
+            name:""
+        }
+    });
+</script>
+</body>
+</html>
