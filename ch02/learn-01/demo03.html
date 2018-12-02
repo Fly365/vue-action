@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue-插值与表达式</title>
+</head>
+<body>
+    <div id="app">
+        <div>{{ date}}</div>
+        <hr>
+        <div>
+            <!-- 如果想输出 HTML而不是纯文本-->
+            <span v-html="link"></span>
+        </div>
+        <hr>
+        <div>
+            <!--如果想显示 {{}}标签，而不进行替换，使用v-pre可跳过这个元素和它子元素的编译过程-->
+            <span v-pre>{{这里的内容不会被编译}}</span>
+        </div>
+    </div>
+
+
+    <script src="vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                date: new Date(),
+                link: "<a href=''>这是一个链接</a>"
+            },
+            mounted: function(){
+                // 声明一个变量指向 Vue 实例this，保证作用域一致
+                var _this = this;
+                this.timer = setInterval(function(){
+                    _this.date = new Date();// 修改数据date
+                },1000);
+            },
+            beforeDestroy: function(){
+                if(this.timer){
+                    //在 Vue实例销毁前，清除我们的定时器
+                    clearInterval(this.timer);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>指令与事件</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- v-bind，动态更新HTML上的属性，比如id,class-->
+        <div>
+            <a v-bind:href="url">链接</a>
+            <img v-bind:src="imgUrl" alt="">
+
+            <!-- 语法糖，缩写形式-->
+            <a :href="url2">语法糖方式的链接</a>
+        </div>
+
+        <!-- v-on 用来绑定事件监听器-->
+        <div>
+            <p v-if="show">这是一段文本</p>
+            <button v-on:click="handleClose">点击隐藏</button>
+
+            <!--语法糖方式-->
+            <button @click="handleClose2">点击隐藏</button>
+        </div>
+    </div>
+  
+    <script src="vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data:{
+                url: "https://www.github.com",
+                imgUrl: "http://xxx.xxx.xx/img.png",
+                show: true
+            },
+            methods:{
+                handleClose: function(){
+                    this.show = false;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
