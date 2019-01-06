@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染指令</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="status === 1">当status为1时显示改行</p>
+        <p v-else-if="status === 2">当status为2时显示改行</p>
+        <p v-else>否则显示改行</p>
+    </div>
+
+    <!--Vue在渲染元素时，出于效率考虑，会尽可能复用已有的元素而非重新渲染，如下input 元素被复用了-->
+    <div id="app2">
+        <template v-if="type === 'name'">
+            <label for="name">用户名:</label>
+            <input type="text" placeholder="输入用户名">
+        </template>
+        <template v-else>
+            <label for="mail">邮箱&nbsp;:</label>
+            <input placeholder="输入邮箱">
+        </template>
+        <button @click="handleToggleClick">切换输入类型</button>
+    </div>
+
+    <div id="app3">
+        <p v-show="status === 1">当status为1时显示该行</p>
+    </div>
+    <script src="./../static/js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                status : 1
+            }
+        })
+
+        var app2 = new Vue({
+            el: "#app2",
+            data:{
+                type: 'name'
+            },
+            methods: {
+                handleToggleClick: function(){
+                    this.type = this.type === 'name' ? 'mail':'name';
+                }
+            },
+        })
+
+        var app3 = new Vue({
+            el: "#app3",
+            data:{
+                status : 2
+            }
+        })
+    </script>
+</body>
+</html>            
