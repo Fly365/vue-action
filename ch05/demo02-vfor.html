@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染v-for</title>
+</head>
+<body>
+
+    <div id="app">
+        <ul>
+            <li v-for="book in books">{{book.name}}</li>
+        </ul>
+    </div>
+
+    <div id="app2">
+        <ul>
+            <li v-for="book of books">{{book.name}}</li>
+        </ul>
+    </div>
+
+    <div id="app3">
+        <ul>
+            <li v-for="(book,index) in books"> {{index}} - {{book.name}}</li>
+        </ul>
+    </div>
+
+    <!--可以用在内置标签template上，将多个元素进行渲染-->
+    <div id="app4">
+        <ul>
+            <template v-for="book in books">
+                <li>书名: {{book.name}}</li>
+                <li>作者: {{book.author}}</li>
+            </template>
+        </ul>
+    </div>
+
+    <!-- 对象的属性 也可以遍历-->
+    <div id="app5">
+        <span v-for="value in user">{{value}}</span>
+    </div>
+
+    <div id="app6">
+        <ul>
+            <li v-for="(value,key,index) in user">
+                {{index}} - {{key}} : {{value}}
+            </li>
+        </ul>
+    </div>
+
+    <div id="app7">
+        <span v-for="n in 10"> {{ n }} </span>
+    </div>
+
+    <div id="app8">
+        <ul>
+            <template v-for="book in filterBooks">
+                <li>书名: {{book.name}}</li>
+                <li>作者: {{book.author}}</li>
+            </template>
+        </ul>
+    </div>
+
+    
+    <script src="./../static/js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                books: [
+                    {name: '《Vue.js实战》'},
+                    {name: '《javascript高级程序设计》'}
+                ]
+            }
+        });
+
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                books: [
+                    {name: '《Vue.js实战》'},
+                    {name: '《javascript高级程序设计》'}
+                ]               
+            }
+        });
+
+        var app3 = new Vue({
+            el: "#app3",
+            data: {
+                books: [
+                    {name: '《Vue.js实战》'},
+                    {name: '《javascript高级程序设计》'}
+                ]                  
+            }
+        });
+
+        app3.books = app3.books.filter(function(item){
+            return item.name.match(/javascript/);
+        });
+
+        var app4 = new Vue({
+            el: "#app4",
+            data: {
+                books: [
+                    {name: "《Vue.js实战》", author: "Tom"},
+                    {name: "《JavaScript高级程序设计》", author: "Jerry"}
+                ]
+            }
+        });
+
+
+        // 数组更新
+        app4.books.push({name: "《CSS揭秘》", author: "LiLei"});
+
+        var app5 = new Vue({
+            el: "#app5",
+            data: {
+                user: {
+                    name: "Tom",
+                    gender: "男",
+                    age: 20
+                }
+            }
+        });
+
+        var app6 = new Vue({
+            el: "#app6",
+            data: {
+                user: {
+                    name: "Tom",
+                    gender: "男",
+                    age: 20
+                }             
+            }
+        });
+
+        var app7 = new Vue({
+            el: "#app7"
+        });
+
+        var app8 = new Vue({
+            el: "#app8",
+            data: {
+                books: [
+                    {name: "《Vue.js实战》", author: "Tom"},
+                    {name: "《JavaScript高级程序设计》", author: "Jerry"}
+                ]
+            },
+            computed: {
+                filterBooks: function(){
+                    return this.books.filter(function(book){
+                        return book.name.match(/JavaScript/);
+                    });
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>
